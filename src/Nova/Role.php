@@ -4,7 +4,6 @@ namespace NovaRoleManager\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -44,34 +43,27 @@ class Role extends Resource
 
     public function fields(NovaRequest $request)
     {
-        $userModel = config('nova-role-manager.user_model', \App\Models\User::class);
-
         return [
             ID::make()->sortable(),
 
             Text::make(__('nova-role-manager::roles.name'), 'name')
                 ->sortable()
-                ->rules('required', 'string', 'unique:nrm_roles,name,{{resourceId}}')
-                ->creationRules('unique:nrm_roles,name'),
+                ->rules('required', 'string', 'unique:roles,name,{{resourceId}}')
+                ->creationRules('unique:roles,name'),
 
             Textarea::make(__('nova-role-manager::roles.description'), 'description')
                 ->nullable(),
 
-            Boolean::make(__('nova-role-manager::roles.is_superadmin'), 'is_superadmin')
-                ->canSee(function ($request) {
-                    return auth()->user()->isSuperAdmin();
-                }),
-
             BelongsToMany::make(__('nova-role-manager::permissions.label'), 'permissions', Permission::class)
                 ->searchable()
                 ->canSee(function ($request) {
-                    return auth()->user()->hasPermission('manage.permissions');
+                    return auth()->user()->hasPermissionTo('manage.permissions');
                 }),
 
             BelongsToMany::make(__('nova-role-manager::users.label'), 'users')
                 ->searchable()
                 ->canSee(function ($request) {
-                    return auth()->user()->hasPermission('manage.users');
+                    return auth()->user()->hasPermissionTo('manage.users');
                 }),
         ];
     }

@@ -3,10 +3,8 @@
 namespace NovaRoleManager\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use NovaRoleManager\Models\Role;
-use NovaRoleManager\Observers\UserObserver;
+use Spatie\Permission\Models\Role;
 
 class NovaRoleManagerServiceProvider extends ServiceProvider
 {
@@ -44,8 +42,16 @@ class NovaRoleManagerServiceProvider extends ServiceProvider
             \NovaRoleManager\Nova\Permission::class,
         ]);
 
-        // Register observer to mark first user as superadmin
-        $userModel = config('nova-role-manager.user_model', \App\Models\User::class);
-        $userModel::observe(UserObserver::class);
+        // Configure Spatie permission models
+        // This uses the tenant-aware models from this package
+        $this->configureSpatie();
+    }
+
+    private function configureSpatie()
+    {
+        // Use our tenant-aware models
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)
+            ->setPermissionClass(\NovaRoleManager\Models\Permission::class)
+            ->setRoleClass(\NovaRoleManager\Models\Role::class);
     }
 }

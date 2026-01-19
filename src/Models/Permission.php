@@ -2,55 +2,34 @@
 
 namespace NovaRoleManager\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Permission as SpatiePermission;
 use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
 
-class Permission extends Model
+class Permission extends SpatiePermission
 {
-    use HasFactory, UsesTenantConnection;
-
-    protected $fillable = ['name', 'description', 'resource', 'action'];
-
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
+    use UsesTenantConnection;
 
     /**
-     * Get the roles that have this permission
+     * Get permissions for a specific resource
      */
-    public function roles()
-    {
-        return $this->belongsToMany(
-            Role::class,
-            'nrm_role_permission',
-            'permission_id',
-            'role_id'
-        );
-    }
-
-    /**
-     * Scope to filter permissions by resource
-     */
-    public function scopeForResource($query, $resource)
+    public function scopeForResource($query, string $resource)
     {
         return $query->where('resource', $resource);
     }
 
     /**
-     * Scope to filter permissions by action
+     * Get permissions for a specific action
      */
-    public function scopeForAction($query, $action)
+    public function scopeForAction($query, string $action)
     {
         return $query->where('action', $action);
     }
 
     /**
-     * Generate a permission name from resource and action
+     * Helper to create permission name in format: resource.action
      */
-    public static function makePermissionName($resource, $action): string
+    public static function makePermissionName(string $resource, string $action): string
     {
-        return "{$action}.{$resource}";
+        return "{$resource}.{$action}";
     }
 }

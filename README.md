@@ -2,15 +2,17 @@
 
 A complete, reusable role-based access control (RBAC) system for Laravel Nova with multi-tenancy support, policies, and permissions.
 
+Built on top of **[spatie/laravel-permission](https://github.com/spatie/laravel-permission)** with Nova admin UI layer and multi-tenancy integration.
+
 ## Features
 
-- 🔐 **Role-Based Access Control (RBAC)** - Manage user roles and permissions
+- 🔐 **Role-Based Access Control (RBAC)** - Manage user roles and permissions via spatie/laravel-permission
 - 🏢 **Multi-Tenancy Support** - Full tenant isolation using Spatie Multitenancy
 - 📋 **Nova Integration** - Manage roles and permissions directly from Nova admin panel
 - 🔑 **Policies** - Built-in Laravel policies for model authorization
-- 👤 **First User Superadmin** - Automatically assign superadmin role to first user in tenant
 - 🎯 **Flexible Permissions** - Resource-based permission system (view, create, update, delete, manage)
 - 🔄 **Trait-Based** - Easy integration with existing User model via Authorizable trait
+- ⚡ **Industry Standard** - Built on battle-tested spatie/laravel-permission package
 - 🌍 **Multi-Language** - English and Polish translations included
 
 ## Installation
@@ -27,7 +29,6 @@ In your `app/Models/User.php`:
 
 ```php
 use NovaRoleManager\Traits\Authorizable;
-
 class User extends Authenticatable
 {
     use Authorizable; // Add this

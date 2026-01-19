@@ -65,8 +65,8 @@ class Permission extends Resource
 
             Text::make(__('nova-role-manager::permissions.name'), 'name')
                 ->sortable()
-                ->rules('required', 'string', 'unique:nrm_permissions,name,{{resourceId}}')
-                ->creationRules('unique:nrm_permissions,name')
+                ->rules('required', 'string', 'unique:permissions,name,{{resourceId}}')
+                ->creationRules('unique:permissions,name')
                 ->readonly()
                 ->hideWhenCreating(),
 

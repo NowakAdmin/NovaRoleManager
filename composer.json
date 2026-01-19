@@ -1,0 +1,50 @@
+{
+    "name": "nowakadmin/nova-role-manager",
+    "description": "Complete role-based access control (RBAC) system for Laravel Nova with multi-tenancy support, policies, and permissions",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nowak Administrators",
+            "email": "info@nowakadministrators.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^12.0",
+        "laravel/nova": "^5.0",
+        "spatie/laravel-multitenancy": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "NovaRoleManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "NovaRoleManager\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NovaRoleManager\\Providers\\NovaRoleManagerServiceProvider"
+            ]
+        }
+    },
+    "keywords": [
+        "laravel",
+        "nova",
+        "roles",
+        "permissions",
+        "rbac",
+        "authorization",
+        "policies",
+        "multi-tenancy",
+        "access-control"
+    ],
+    "minimum-stability": "stable"
+}

@@ -1,0 +1,24 @@
+{
+    "roles": {
+        "label": "Roles",
+        "singular": "Role",
+        "create": "Add Role",
+        "update": "Save Changes",
+        "name": "Name",
+        "description": "Description",
+        "is_superadmin": "Superadmin"
+    },
+    "permissions": {
+        "label": "Permissions",
+        "singular": "Permission",
+        "create": "Add Permission",
+        "update": "Save Changes",
+        "name": "Name",
+        "description": "Description",
+        "resource": "Resource",
+        "action": "Action"
+    },
+    "users": {
+        "label": "Users"
+    }
+}

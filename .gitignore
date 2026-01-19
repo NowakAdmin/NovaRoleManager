@@ -1,0 +1,11 @@
+vendor/
+node_modules/
+.env
+.env.local
+.DS_Store
+.idea/
+.vscode/
+*.log
+composer.lock
+npm-debug.log
+yarn-error.log

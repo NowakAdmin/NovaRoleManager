@@ -1,0 +1,24 @@
+{
+    "roles": {
+        "label": "Role",
+        "singular": "Role",
+        "create": "Dodaj rolę",
+        "update": "Zapisz zmiany",
+        "name": "Nazwa",
+        "description": "Opis",
+        "is_superadmin": "Superadministrator"
+    },
+    "permissions": {
+        "label": "Uprawnienia",
+        "singular": "Uprawnienie",
+        "create": "Dodaj uprawnienie",
+        "update": "Zapisz zmiany",
+        "name": "Nazwa",
+        "description": "Opis",
+        "resource": "Zasób",
+        "action": "Akcja"
+    },
+    "users": {
+        "label": "Użytkownicy"
+    }
+}

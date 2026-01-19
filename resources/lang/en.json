@@ -1,20 +1,20 @@
 {
-    "nova-role-manager::roles.label": "Roles",
-    "nova-role-manager::roles.singular": "Role",
-    "nova-role-manager::roles.create": "Add Role",
-    "nova-role-manager::roles.update": "Save Changes",
-    "nova-role-manager::roles.name": "Name",
-    "nova-role-manager::roles.description": "Description",
-    "nova-role-manager::roles.is_superadmin": "Superadmin",
+    "roles.label": "Roles",
+    "roles.singular": "Role",
+    "roles.create": "Add Role",
+    "roles.update": "Save Changes",
+    "roles.name": "Name",
+    "roles.description": "Description",
+    "roles.is_superadmin": "Superadmin",
     
-    "nova-role-manager::permissions.label": "Permissions",
-    "nova-role-manager::permissions.singular": "Permission",
-    "nova-role-manager::permissions.create": "Add Permission",
-    "nova-role-manager::permissions.update": "Save Changes",
-    "nova-role-manager::permissions.name": "Name",
-    "nova-role-manager::permissions.description": "Description",
-    "nova-role-manager::permissions.resource": "Resource",
-    "nova-role-manager::permissions.action": "Action",
+    "permissions.label": "Permissions",
+    "permissions.singular": "Permission",
+    "permissions.create": "Add Permission",
+    "permissions.update": "Save Changes",
+    "permissions.name": "Name",
+    "permissions.description": "Description",
+    "permissions.resource": "Resource",
+    "permissions.action": "Action",
     
-    "nova-role-manager::users.label": "Users"
+    "users.label": "Users"
 }

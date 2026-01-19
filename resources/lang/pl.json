@@ -1,20 +1,20 @@
 {
-    "nova-role-manager::roles.label": "Role",
-    "nova-role-manager::roles.singular": "Rola",
-    "nova-role-manager::roles.create": "Dodaj rolę",
-    "nova-role-manager::roles.update": "Zapisz zmiany",
-    "nova-role-manager::roles.name": "Nazwa",
-    "nova-role-manager::roles.description": "Opis",
-    "nova-role-manager::roles.is_superadmin": "Superadministrator",
+    "roles.label": "Role",
+    "roles.singular": "Rola",
+    "roles.create": "Dodaj rolę",
+    "roles.update": "Zapisz zmiany",
+    "roles.name": "Nazwa",
+    "roles.description": "Opis",
+    "roles.is_superadmin": "Superadministrator",
     
-    "nova-role-manager::permissions.label": "Uprawnienia",
-    "nova-role-manager::permissions.singular": "Uprawnienie",
-    "nova-role-manager::permissions.create": "Dodaj uprawnienie",
-    "nova-role-manager::permissions.update": "Zapisz zmiany",
-    "nova-role-manager::permissions.name": "Nazwa",
-    "nova-role-manager::permissions.description": "Opis",
-    "nova-role-manager::permissions.resource": "Zasób",
-    "nova-role-manager::permissions.action": "Akcja",
+    "permissions.label": "Uprawnienia",
+    "permissions.singular": "Uprawnienie",
+    "permissions.create": "Dodaj uprawnienie",
+    "permissions.update": "Zapisz zmiany",
+    "permissions.name": "Nazwa",
+    "permissions.description": "Opis",
+    "permissions.resource": "Zasób",
+    "permissions.action": "Akcja",
     
-    "nova-role-manager::users.label": "Użytkownicy"
+    "users.label": "Użytkownicy"
 }

@@ -60,7 +60,7 @@ class Role extends Resource
                     return auth()->user()->hasPermissionTo('manage.permissions');
                 }),
 
-            BelongsToMany::make(__('nova-role-manager::users.label'), 'users')
+            BelongsToMany::make(__('nova-role-manager::users.label'), 'users', \App\Nova\User::class)
                 ->searchable()
                 ->canSee(function ($request) {
                     return auth()->user()->hasPermissionTo('manage.users');

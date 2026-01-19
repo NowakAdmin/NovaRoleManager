@@ -63,7 +63,7 @@ class Role extends Resource
             BelongsToMany::make(__('users.label'), 'users', \App\Nova\User::class)
                 ->searchable()
                 ->canSee(function ($request) {
-                    return auth()->user()->hasPermissionTo('manage.users');
+                    return auth()->user()->hasPermissionTo('manage.user');
                 }),
         ];
     }

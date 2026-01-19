@@ -90,7 +90,7 @@ class Permission extends Resource
             BelongsToMany::make(__('roles.label'), 'roles', Role::class)
                 ->searchable()
                 ->canSee(function ($request) {
-                    return auth()->user()->hasPermission('manage.roles');
+                    return auth()->user()->hasPermissionTo('manage.roles');
                 }),
         ];
     }

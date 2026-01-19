@@ -33,6 +33,9 @@ class NovaRoleManagerServiceProvider extends ServiceProvider
             __DIR__ . '/../../resources/lang' => resource_path('lang/vendor/nova-role-manager'),
         ], 'translations');
 
+        // Load JSON translations for PHP __() calls
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../../resources/lang');
+
         // Register translations with Nova
         Nova::serving(function () {
             $locale = app()->getLocale();

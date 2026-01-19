@@ -26,17 +26,17 @@ class Permission extends Resource
 
     public static function label()
     {
-        return __('nova-role-manager::permissions.label');
+        return __('permissions.label');
     }
 
     public static function singularLabel()
     {
-        return __('nova-role-manager::permissions.singular');
+        return __('permissions.singular');
     }
 
     public static function createButtonLabel()
     {
-        return __('nova-role-manager::permissions.create');
+        return __('permissions.create');
     }
 
     public static function updateButtonLabel()

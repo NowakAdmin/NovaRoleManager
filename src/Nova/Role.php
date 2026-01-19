@@ -23,22 +23,22 @@ class Role extends Resource
 
     public static function label()
     {
-        return __('nova-role-manager::roles.label');
+        return __('roles.label');
     }
 
     public static function singularLabel()
     {
-        return __('nova-role-manager::roles.singular');
+        return __('roles.singular');
     }
 
     public static function createButtonLabel()
     {
-        return __('nova-role-manager::roles.create');
+        return __('roles.create');
     }
 
     public static function updateButtonLabel()
     {
-        return __('nova-role-manager::roles.update');
+        return __('roles.update');
     }
 
     public function fields(NovaRequest $request)
@@ -46,21 +46,21 @@ class Role extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make(__('nova-role-manager::roles.name'), 'name')
+            Text::make(__('roles.name'), 'name')
                 ->sortable()
                 ->rules('required', 'string', 'unique:roles,name,{{resourceId}}')
                 ->creationRules('unique:roles,name'),
 
-            Textarea::make(__('nova-role-manager::roles.description'), 'description')
+            Textarea::make(__('roles.description'), 'description')
                 ->nullable(),
 
-            BelongsToMany::make(__('nova-role-manager::permissions.label'), 'permissions', Permission::class)
+            BelongsToMany::make(__('permissions.label'), 'permissions', Permission::class)
                 ->searchable()
                 ->canSee(function ($request) {
                     return auth()->user()->hasPermissionTo('manage.permissions');
                 }),
 
-            BelongsToMany::make(__('nova-role-manager::users.label'), 'users', \App\Nova\User::class)
+            BelongsToMany::make(__('users.label'), 'users', \App\Nova\User::class)
                 ->searchable()
                 ->canSee(function ($request) {
                     return auth()->user()->hasPermissionTo('manage.users');

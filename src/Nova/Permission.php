@@ -41,7 +41,7 @@ class Permission extends Resource
 
     public static function updateButtonLabel()
     {
-        return __('nova-role-manager::permissions.update');
+        return __('permissions.update');
     }
 
     public function fields(NovaRequest $request)
@@ -63,31 +63,31 @@ class Permission extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make(__('nova-role-manager::permissions.name'), 'name')
+            Text::make(__('permissions.name'), 'name')
                 ->sortable()
                 ->rules('required', 'string', 'unique:permissions,name,{{resourceId}}')
                 ->creationRules('unique:permissions,name')
                 ->readonly()
                 ->hideWhenCreating(),
 
-            Select::make(__('nova-role-manager::permissions.resource'), 'resource')
+            Select::make(__('permissions.resource'), 'resource')
                 ->options($resources)
                 ->displayUsingLabels()
                 ->sortable()
                 ->rules('required', 'string')
                 ->searchable(),
 
-            Select::make(__('nova-role-manager::permissions.action'), 'action')
+            Select::make(__('permissions.action'), 'action')
                 ->options($actions)
                 ->displayUsingLabels()
                 ->sortable()
                 ->rules('required', 'string')
                 ->searchable(),
 
-            Textarea::make(__('nova-role-manager::permissions.description'), 'description')
+            Textarea::make(__('permissions.description'), 'description')
                 ->nullable(),
 
-            BelongsToMany::make(__('nova-role-manager::roles.label'), 'roles', Role::class)
+            BelongsToMany::make(__('roles.label'), 'roles', Role::class)
                 ->searchable()
                 ->canSee(function ($request) {
                     return auth()->user()->hasPermission('manage.roles');

@@ -28,12 +28,13 @@ class RemoveRole extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        $guard = config('auth.defaults.guard', 'web');
-        
         foreach ($models as $model) {
-            // Remove specified roles with proper guard
-            foreach ($fields->roles as $role) {
-                $model->removeRole($role, $guard);
+            // Get role objects - let Spatie handle guard automatically
+            $roleNames = $fields->roles;
+            $roles = Role::whereIn('name', $roleNames)->get();
+            
+            foreach ($roles as $role) {
+                $model->removeRole($role);
             }
         }
 

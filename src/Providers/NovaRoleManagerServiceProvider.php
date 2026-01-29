@@ -1,6 +1,6 @@
 <?php
 
-namespace NovaRoleManager\Providers;
+namespace NowakAdmin\NovaRoleManager\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
@@ -48,8 +48,8 @@ class NovaRoleManagerServiceProvider extends ServiceProvider
 
         // Register Nova resources
         Nova::resources([
-            \NovaRoleManager\Nova\Role::class,
-            \NovaRoleManager\Nova\Permission::class,
+            \NowakAdmin\NovaRoleManager\Nova\Role::class,
+            \NowakAdmin\NovaRoleManager\Nova\Permission::class,
         ]);
 
         // Configure Spatie permission models
@@ -61,7 +61,7 @@ class NovaRoleManagerServiceProvider extends ServiceProvider
     {
         // Use our tenant-aware models
         app()->make(\Spatie\Permission\PermissionRegistrar::class)
-            ->setPermissionClass(\NovaRoleManager\Models\Permission::class)
-            ->setRoleClass(\NovaRoleManager\Models\Role::class);
+            ->setPermissionClass(\NowakAdmin\NovaRoleManager\Models\Permission::class)
+            ->setRoleClass(\NowakAdmin\NovaRoleManager\Models\Role::class);
     }
 }

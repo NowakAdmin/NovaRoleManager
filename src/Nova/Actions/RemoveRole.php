@@ -9,7 +9,7 @@ use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\MultiSelect;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use NovaRoleManager\Models\Role;
+use NowakAdmin\NovaRoleManager\Models\Role;
 
 class RemoveRole extends Action
 {

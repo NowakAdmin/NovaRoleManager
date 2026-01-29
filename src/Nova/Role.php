@@ -12,7 +12,7 @@ use Laravel\Nova\Resource;
 
 class Role extends Resource
 {
-    public static $model = \NovaRoleManager\Models\Role::class;
+    public static $model = \NowakAdmin\NovaRoleManager\Models\Role::class;
 
     public static $title = 'name';
 
@@ -60,7 +60,7 @@ class Role extends Resource
                     return auth()->user()->hasPermissionTo('manage.permission');
                 }),
 
-            BelongsToMany::make(__('users.label'), 'users', \App\Nova\User::class)
+            BelongsToMany::make(__('users.label'), 'users', \NowakAdmin\BizantiCore\Nova\User::class)
                 ->searchable()
                 ->canSee(function ($request) {
                     return auth()->user()->hasPermissionTo('manage.user');

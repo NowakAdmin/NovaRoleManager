@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NovaRoleManager\\": "src/"
+            "NowakAdmin\\NovaRoleManager\\": "src/"
         }
     },
     "autoload-dev": {
@@ -32,7 +32,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "NovaRoleManager\\Providers\\NovaRoleManagerServiceProvider"
+                "NowakAdmin\\NovaRoleManager\\Providers\\NovaRoleManagerServiceProvider"
             ]
         }
     },

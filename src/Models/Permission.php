@@ -1,6 +1,6 @@
 <?php
 
-namespace NovaRoleManager\Models;
+namespace NowakAdmin\NovaRoleManager\Models;
 
 use Spatie\Permission\Models\Permission as SpatiePermission;
 use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;

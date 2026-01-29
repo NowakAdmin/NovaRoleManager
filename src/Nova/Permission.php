@@ -13,7 +13,7 @@ use Laravel\Nova\Resource;
 
 class Permission extends Resource
 {
-    public static $model = \NovaRoleManager\Models\Permission::class;
+    public static $model = \NowakAdmin\NovaRoleManager\Models\Permission::class;
 
     public static $title = 'name';
 

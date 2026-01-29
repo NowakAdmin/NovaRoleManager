@@ -28,9 +28,13 @@ class RemoveRole extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
+        $guard = config('auth.defaults.guard', 'web');
+        
         foreach ($models as $model) {
-            // Remove specified roles
-            $model->removeRole($fields->roles);
+            // Remove specified roles with proper guard
+            foreach ($fields->roles as $role) {
+                $model->removeRole($role, $guard);
+            }
         }
 
         return Action::message(__('Roles removed successfully!'));

@@ -28,9 +28,11 @@ class AssignRole extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
+        $guard = config('auth.defaults.guard', 'web');
+        
         foreach ($models as $model) {
-            // Sync roles (replaces existing)
-            $model->syncRoles($fields->roles);
+            // Sync roles with proper guard (replaces existing)
+            $model->syncRoles($fields->roles, $guard);
         }
 
         return Action::message(__('Roles assigned successfully!'));

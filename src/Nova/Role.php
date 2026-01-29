@@ -1,6 +1,6 @@
 <?php
 
-namespace NovaRoleManager\Nova;
+namespace NowakAdmin\NovaRoleManager\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;

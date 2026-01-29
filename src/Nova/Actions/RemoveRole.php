@@ -1,6 +1,6 @@
 <?php
 
-namespace NovaRoleManager\Nova\Actions;
+namespace NowakAdmin\NovaRoleManager\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;

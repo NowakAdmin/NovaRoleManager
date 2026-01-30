@@ -21,17 +21,17 @@ class NovaRoleManagerServiceProvider extends ServiceProvider
         // Publish migrations
         $this->publishes([
             __DIR__ . '/../../database/migrations' => database_path('migrations/tenant'),
-        ], 'migrations');
+        ], 'nova-role-manager-migrations');
 
         // Publish config
         $this->publishes([
             __DIR__ . '/../../config/nova-role-manager.php' => config_path('nova-role-manager.php'),
-        ], 'config');
+        ], 'nova-role-manager-config');
 
         // Publish translations
         $this->publishes([
             __DIR__ . '/../../resources/lang' => resource_path('lang/vendor/nova-role-manager'),
-        ], 'translations');
+        ], 'nova-role-manager-translations');
 
         // Load JSON translations for PHP __() calls
         $this->loadJsonTranslationsFrom(__DIR__ . '/../../resources/lang');

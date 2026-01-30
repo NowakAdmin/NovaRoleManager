@@ -93,7 +93,11 @@ class Permission extends Resource
             BelongsToMany::make(__('roles.label'), 'roles', Role::class)
                 ->searchable()
                 ->canSee(function ($request) {
-                    return auth()->user()->hasPermissionTo('manage.role');
+                    try {
+                        return auth()->check() && auth()->user()->hasPermissionTo('manage.role');
+                    } catch (\Exception $e) {
+                        return true; // During seeding, allow access
+                    }
                 }),
         ];
     }

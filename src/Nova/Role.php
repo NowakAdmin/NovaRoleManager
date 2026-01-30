@@ -57,13 +57,21 @@ class Role extends Resource
             BelongsToMany::make(__('permissions.label'), 'permissions', Permission::class)
                 ->searchable()
                 ->canSee(function ($request) {
-                    return auth()->user()->hasPermissionTo('manage.permission');
+                    try {
+                        return auth()->check() && auth()->user()->hasPermissionTo('manage.permission');
+                    } catch (\Exception $e) {
+                        return true; // During seeding, allow access
+                    }
                 }),
 
             BelongsToMany::make(__('users.label'), 'users', \NowakAdmin\BizantiCore\Nova\User::class)
                 ->searchable()
                 ->canSee(function ($request) {
-                    return auth()->user()->hasPermissionTo('manage.user');
+                    try {
+                        return auth()->check() && auth()->user()->hasPermissionTo('manage.user');
+                    } catch (\Exception $e) {
+                        return true; // During seeding, allow access
+                    }
                 }),
         ];
     }

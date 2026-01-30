@@ -40,13 +40,13 @@ class User extends Authenticatable
 
 ```bash
 # Publish migrations
-php artisan vendor:publish --provider="NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=migrations
+php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=migrations
 
 # Publish config
-php artisan vendor:publish --provider="NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=config
+php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=config
 
 # Publish translations
-php artisan vendor:publish --provider="NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=translations
+php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=translations
 ```
 
 ### 4. Run Migrations
@@ -67,7 +67,7 @@ In `app/Providers/AuthServiceProvider.php`:
 
 ```php
 use Illuminate\Support\Facades\Gate;
-use NovaRoleManager\Policies\BasePolicy;
+use NowakAdmin\NovaRoleManager\Policies\BasePolicy;
 
 protected $policies = [
     // Your models here

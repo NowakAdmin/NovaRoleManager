@@ -68,9 +68,16 @@ return new class extends Migration {
 
     public function down(): void
     {
+        // Disable foreign key checks to allow table drops in any order
+        Schema::disableForeignKeyConstraints();
+
+        // Drop in reverse order of creation (pivot tables first)
         Schema::dropIfExists('model_has_roles');
         Schema::dropIfExists('role_has_permissions');
         Schema::dropIfExists('permissions');
         Schema::dropIfExists('roles');
+
+        // Re-enable foreign key checks
+        Schema::enableForeignKeyConstraints();
     }
 };

@@ -52,11 +52,14 @@ class Permission extends Resource
             'permission' => 'Permission',
         ]);
 
+        // Match BasePolicy methods
         $actions = config('nova-role-manager.actions', [
             'view' => 'View',
             'create' => 'Create',
             'update' => 'Update',
             'delete' => 'Delete',
+            'restore' => 'Restore',
+            'force_delete' => 'Force Delete',
             'manage' => 'Manage',
         ]);
 

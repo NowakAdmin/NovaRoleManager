@@ -29,9 +29,11 @@ class AssignRole extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            // Sync roles - let Spatie handle guard automatically
+            // Sync roles with explicit guard
             $roleNames = $fields->roles;
-            $roles = Role::whereIn('name', $roleNames)->get();
+            $roles = Role::whereIn('name', $roleNames)
+                ->where('guard_name', 'web')
+                ->get();
             $model->syncRoles($roles);
         }
 

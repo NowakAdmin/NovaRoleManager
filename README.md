@@ -40,13 +40,16 @@ class User extends Authenticatable
 
 ```bash
 # Publish migrations
-php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=migrations
+php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=nova-role-manager-migrations
 
 # Publish config
-php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=config
+php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=nova-role-manager-config
 
 # Publish translations
-php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=translations
+php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --tag=nova-role-manager-translations
+
+# Or publish all at once
+php artisan vendor:publish --provider="NowakAdmin\NovaRoleManager\Providers\NovaRoleManagerServiceProvider" --force
 ```
 
 ### 4. Run Migrations
@@ -103,6 +106,8 @@ return [
         'create' => 'Create',
         'update' => 'Update',
         'delete' => 'Delete',
+        'restore' => 'Restore',
+        'force_delete' => 'Force Delete',
         'manage' => 'Manage',
     ],
 ];
@@ -303,26 +308,29 @@ public function testUserCanViewArticles()
 
 ## Database Schema
 
-### Roles Table (`nrm_roles`)
+### Roles Table (`roles`)
 - `id` - Primary key
-- `tenant_id` - Tenant identifier (multi-tenancy)
+- `tenant_id` - Tenant identifier (multi-tenancy, nullable for landlord)
 - `name` - Unique role name
-- `description` - Role description
-- `is_superadmin` - Superadmin flag
+- `guard_name` - Guard type (default: 'web')
+- `description` - Role description (optional)
 - `created_at`, `updated_at`
+- Unique constraint: `[name, guard_name, tenant_id]`
 
-### Permissions Table (`nrm_permissions`)
+### Permissions Table (`permissions`)
 - `id` - Primary key
-- `tenant_id` - Tenant identifier
+- `tenant_id` - Tenant identifier (nullable for landlord)
 - `name` - Unique permission name
+- `guard_name` - Guard type (default: 'web')
 - `resource` - Resource type (user, role, article, etc.)
-- `action` - Action (view, create, update, delete, manage)
-- `description` - Permission description
+- `action` - Action (view, create, update, delete, restore, force_delete, manage)
+- `description` - Permission description (optional)
 - `created_at`, `updated_at`
+- Unique constraint: `[name, guard_name, tenant_id]`
 
 ### Pivot Tables
-- `nrm_role_permission` - Maps roles to permissions
-- `nrm_user_role` - Maps users to roles
+- `role_has_permissions` - Maps roles to permissions
+- `model_has_roles` - Maps users to roles (polymorphic)
 
 ## Events & Observers
 

@@ -18,6 +18,7 @@ return new class extends Migration {
                 $table->string('name');
                 $table->string('guard_name')->default('web');
                 $table->string('description')->nullable();
+                $table->boolean('is_superadmin')->default(false); // Add superadmin flag
                 $table->timestamps();
 
                 $table->unique(['name', 'guard_name', 'tenant_id']);

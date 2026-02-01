@@ -1,6 +1,6 @@
 <?php
 
-namespace NovaRoleManager\Traits;
+namespace NowakAdmin\NovaRoleManager\Traits;
 
 use Spatie\Permission\Traits\HasRoles;
 

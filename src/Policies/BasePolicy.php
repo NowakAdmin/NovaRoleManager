@@ -1,6 +1,6 @@
 <?php
 
-namespace NovaRoleManager\Policies;
+namespace NowakAdmin\NovaRoleManager\Policies;
 
 use Illuminate\Database\Eloquent\Model;
 

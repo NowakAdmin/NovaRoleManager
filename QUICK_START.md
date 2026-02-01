@@ -37,7 +37,7 @@ php artisan tenants:artisan "migrate"
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use NovaRoleManager\Traits\Authorizable;
+use NowakAdmin\NovaRoleManager\Traits\Authorizable;
 
 class User extends Authenticatable
 {
@@ -50,7 +50,7 @@ class User extends Authenticatable
 ## Create Roles
 
 ```php
-use NovaRoleManager\Models\Role;
+use NowakAdmin\NovaRoleManager\Models\Role;
 
 // In a seeder or command
 $adminRole = Role::create([
@@ -69,7 +69,7 @@ $editorRole = Role::create([
 ## Create Permissions
 
 ```php
-use NovaRoleManager\Models\Permission;
+use NowakAdmin\NovaRoleManager\Models\Permission;
 
 // Create individual permissions
 Permission::create([

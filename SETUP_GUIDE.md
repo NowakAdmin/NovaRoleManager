@@ -10,7 +10,7 @@ composer require nowakadmin/nova-role-manager
 ### Step 2: Add Trait to User Model
 File: `app/Models/User.php`
 ```php
-use NovaRoleManager\Traits\Authorizable;
+use NowakAdmin\NovaRoleManager\Traits\Authorizable;
 
 class User extends Authenticatable
 {

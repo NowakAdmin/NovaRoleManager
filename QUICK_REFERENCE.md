@@ -34,7 +34,7 @@ $permissions = Permission::forResource('post')->get();
 
 ### User (via Authorizable trait)
 ```php
-use NovaRoleManager\Traits\Authorizable;
+use NowakAdmin\NovaRoleManager\Traits\Authorizable;
 
 class User extends Authenticatable {
     use Authorizable;
@@ -153,8 +153,8 @@ return [
 ```php
 // database/seeders/RolePermissionSeeder.php
 
-use NovaRoleManager\Models\Role;
-use NovaRoleManager\Models\Permission;
+use NowakAdmin\NovaRoleManager\Models\Role;
+use NowakAdmin\NovaRoleManager\Models\Permission;
 
 class RolePermissionSeeder extends Seeder
 {

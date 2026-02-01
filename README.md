@@ -28,7 +28,7 @@ composer require nowakadmin/nova-role-manager
 In your `app/Models/User.php`:
 
 ```php
-use NovaRoleManager\Traits\Authorizable;
+use NowakAdmin\NovaRoleManager\Traits\Authorizable;
 class User extends Authenticatable
 {
     use Authorizable; // Add this
@@ -243,8 +243,8 @@ $permission = Permission::create(...); // Scoped to current tenant
 Create a seeder to populate permissions:
 
 ```php
-use NovaRoleManager\Models\Permission;
-use NovaRoleManager\Models\Role;
+use NowakAdmin\NovaRoleManager\Models\Permission;
+use NowakAdmin\NovaRoleManager\Models\Role;
 
 public function run()
 {

@@ -179,7 +179,7 @@ Create a policy extending `BasePolicy`:
 ```php
 namespace App\Policies;
 
-use NovaRoleManager\Policies\BasePolicy;
+use NowakAdmin\NovaRoleManager\Policies\BasePolicy;;
 
 class ArticlePolicy extends BasePolicy
 {

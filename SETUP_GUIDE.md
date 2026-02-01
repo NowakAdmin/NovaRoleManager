@@ -34,7 +34,7 @@ php artisan tenants:artisan "migrate --path=database/migrations/tenant"
 ### Step 4: (Optional) Register Policies
 File: `app/Providers/AuthServiceProvider.php`
 ```php
-use NovaRoleManager\Policies\BasePolicy;
+use NowakAdmin\NovaRoleManager\Policies\BasePolicy;;
 
 class AuthServiceProvider extends ServiceProvider
 {

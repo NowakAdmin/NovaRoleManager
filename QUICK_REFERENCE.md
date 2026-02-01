@@ -67,7 +67,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Post;
-use NovaRoleManager\Policies\BasePolicy;
+use NowakAdmin\NovaRoleManager\Policies\BasePolicy;;
 
 class PostPolicy extends BasePolicy
 {

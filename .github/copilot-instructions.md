@@ -8,17 +8,22 @@
 - Extends Nova with role and permission management UI
 - Tenant-aware: Each tenant has its own roles and permissions
 - System: Laravel 12.45.1, Nova 5.7.6, PHP 8.3+, Spatie Multitenancy
+- Laravel Boost MCP is available in this workspace and should be used for Laravel-specific docs/debugging before generic web search.
 
 ## Where to look first 🔎
-- Service provider: [src/NovaRoleManagerServiceProvider.php](src/NovaRoleManagerServiceProvider.php) (registers resources, routes, migrations)
-- Nova resources: [src/Nova/](src/Nova/) - `Role`, `Permission`, and related resources
-- Models: [src/Models/](src/Models/) (Role, Permission models extending Spatie)
-- Migrations: [database/migrations/](database/migrations/) (role/permission tables)
-- Routes: [routes/api.php](routes/api.php) (role/permission API endpoints)
-- Configuration: [config/nova-role-manager.php](config/nova-role-manager.php) (role setup)
-- Localization: [resources/lang/](resources/lang/) (role/permission labels)
+- Service provider: [src/Providers/NovaRoleManagerServiceProvider.php](../src/Providers/NovaRoleManagerServiceProvider.php) (registers resources and migrations)
+- Nova resources: [src/Nova/](../src/Nova/) - `Role`, `Permission`, and related resources
+- Models: [src/Models/](../src/Models/) (Role, Permission models extending Spatie)
+- Migrations: [database/migrations/](../database/migrations/) (role/permission tables)
+- Routes: none in package root; authorization is primarily Nova + policies + middleware checks
+- Configuration: [config/nova-role-manager.php](../config/nova-role-manager.php) (role setup)
+- Localization: [resources/lang/](../resources/lang/) (role/permission labels)
 
 ## Key concepts 🎯
+
+### VS Code-first validation workflow (save requests/tokens) 🧪
+- Prefer local checks first: Problems panel, Intelephense diagnostics, then targeted tests.
+- Use Copilot for implementation and architecture questions, not for checks already visible in editor diagnostics.
 
 ### Role-based access control (RBAC)
 - **Roles**: Named groups of permissions (e.g., Admin, Sales Manager, Viewer)
@@ -125,9 +130,9 @@ class MyResource extends Resource {
 ```
 
 ### Permission naming conventions
-- Use snake_case format: `create-invoice`, `view-reports`, `approve-subscription`
-- Prefix with action: `create-`, `read-`, `update-`, `delete-`
-- Organize by feature: `invoice-*`, `contract-*`, `product-*`
+- Spatie does not enforce a naming format; this package supports both legacy and dot-based naming.
+- Current helper `Permission::makePermissionName()` generates `resource.action` (example: `invoice.create`).
+- Legacy permissions like `manage.role` can still exist in data; keep one convention per module and stay consistent in checks.
 
 ### Multi-tenancy with roles
 - Roles are **tenant-scoped** (each tenant has independent role setup)

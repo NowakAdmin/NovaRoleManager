@@ -47,5 +47,11 @@
         "multi-tenancy",
         "access-control"
     ],
+    "repositories": {
+        "nova": {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    },
     "minimum-stability": "stable"
 }

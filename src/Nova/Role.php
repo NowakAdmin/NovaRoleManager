@@ -2,13 +2,13 @@
 
 namespace NowakAdmin\NovaRoleManager\Nova;
 
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
+use NowakAdmin\BizantiCore\Nova\User;
 
 class Role extends Resource
 {
@@ -58,17 +58,17 @@ class Role extends Resource
                 ->searchable()
                 ->canSee(function ($request) {
                     try {
-                        return auth()->check() && auth()->user()->hasPermissionTo('manage.permission');
+                        return auth()->check() && auth()->user()->hasPermission('permission.manage');
                     } catch (\Exception $e) {
                         return true; // During seeding, allow access
                     }
                 }),
 
-            BelongsToMany::make(__('users.label'), 'users', \NowakAdmin\BizantiCore\Nova\User::class)
+            BelongsToMany::make(__('users.label'), 'users', User::class)
                 ->searchable()
                 ->canSee(function ($request) {
                     try {
-                        return auth()->check() && auth()->user()->hasPermissionTo('manage.user');
+                        return auth()->check() && auth()->user()->hasPermission('user.manage');
                     } catch (\Exception $e) {
                         return true; // During seeding, allow access
                     }

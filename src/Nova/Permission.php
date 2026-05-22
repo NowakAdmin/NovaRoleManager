@@ -2,7 +2,6 @@
 
 namespace NowakAdmin\NovaRoleManager\Nova;
 
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
@@ -94,7 +93,7 @@ class Permission extends Resource
                 ->searchable()
                 ->canSee(function ($request) {
                     try {
-                        return auth()->check() && auth()->user()->hasPermissionTo('manage.role');
+                        return auth()->check() && auth()->user()->hasPermission('role.manage');
                     } catch (\Exception $e) {
                         return true; // During seeding, allow access
                     }

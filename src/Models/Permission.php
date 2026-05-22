@@ -3,8 +3,8 @@
 namespace NowakAdmin\NovaRoleManager\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Spatie\Permission\Models\Permission as SpatiePermission;
 use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
+use Spatie\Permission\Models\Permission as SpatiePermission;
 
 class Permission extends SpatiePermission
 {
@@ -12,8 +12,8 @@ class Permission extends SpatiePermission
 
     protected static function booted(): void
     {
-        static::creating(function (self $permission): void {
-            if (blank($permission->name) && filled($permission->resource) && filled($permission->action)) {
+        static::saving(function (self $permission): void {
+            if (filled($permission->resource) && filled($permission->action)) {
                 $permission->name = self::makePermissionName($permission->resource, $permission->action);
             }
         });

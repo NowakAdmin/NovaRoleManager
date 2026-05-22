@@ -3,15 +3,30 @@
 namespace NowakAdmin\NovaRoleManager\Policies;
 
 use Illuminate\Database\Eloquent\Model;
+use NowakAdmin\BizantiCore\Models\User;
+use NowakAdmin\BizantiLicensing\Services\LicenseService;
 
 abstract class BasePolicy
 {
     /**
-     * Determine if any action is allowed (called first)
+     * Module license key required for this policy.
+     */
+    protected string $licensedModule = '';
+
+    /**
+     * Determine if any action is allowed (called first).
      */
     public function before($user, $ability)
     {
-        if ($user && $user->isSuperAdmin()) {
+        if (! $user instanceof User) {
+            return null;
+        }
+
+        if (! $this->isLicensed($user)) {
+            return false;
+        }
+
+        if ($user->isSuperAdmin()) {
             return true;
         }
 
@@ -19,7 +34,39 @@ abstract class BasePolicy
     }
 
     /**
-     * Determine if the user can view the model
+     * Get the license service.
+     */
+    protected function licenseService(): LicenseService
+    {
+        return app(LicenseService::class);
+    }
+
+    /**
+     * Check whether this policy has a module license configured.
+     */
+    protected function requiresLicense(): bool
+    {
+        return $this->licensedModule !== '';
+    }
+
+    /**
+     * Check if user's tenant is licensed for this policy.
+     */
+    protected function isLicensed(User $user): bool
+    {
+        if (! $this->requiresLicense()) {
+            return true;
+        }
+
+        if (! $user->tenant_id) {
+            return false;
+        }
+
+        return $this->licenseService()->hasTenantLicense($user->tenant_id, $this->licensedModule);
+    }
+
+    /**
+     * Determine if the user can view the model.
      */
     public function view($user, Model $model)
     {
@@ -27,7 +74,7 @@ abstract class BasePolicy
     }
 
     /**
-     * Determine if the user can create models
+     * Determine if the user can create models.
      */
     public function create($user)
     {
@@ -35,7 +82,7 @@ abstract class BasePolicy
     }
 
     /**
-     * Determine if the user can update the model
+     * Determine if the user can update the model.
      */
     public function update($user, Model $model)
     {
@@ -43,7 +90,7 @@ abstract class BasePolicy
     }
 
     /**
-     * Determine if the user can delete the model
+     * Determine if the user can delete the model.
      */
     public function delete($user, Model $model)
     {
@@ -51,7 +98,7 @@ abstract class BasePolicy
     }
 
     /**
-     * Determine if the user can restore the model
+     * Determine if the user can restore the model.
      */
     public function restore($user, Model $model)
     {
@@ -59,7 +106,7 @@ abstract class BasePolicy
     }
 
     /**
-     * Determine if the user can permanently delete the model
+     * Determine if the user can permanently delete the model.
      */
     public function forceDelete($user, Model $model)
     {
@@ -67,8 +114,8 @@ abstract class BasePolicy
     }
 
     /**
-     * Get the resource name for permission checking
-     * Override in child classes
+     * Get the resource name for permission checking.
+     * Override in child classes.
      */
     abstract protected function getResourceName(): string;
 }

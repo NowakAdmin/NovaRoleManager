@@ -21,11 +21,6 @@ abstract class BasePolicy
         if (! $user instanceof User) {
             return null;
         }
-
-        if (! $this->isLicensed($user)) {
-            return false;
-        }
-
         if ($user->isSuperAdmin()) {
             return true;
         }
@@ -70,7 +65,7 @@ abstract class BasePolicy
      */
     public function view($user, Model $model)
     {
-        return $user && $user->hasPermission('view.' . $this->getResourceName());
+        return $user && $user->hasPermission('view.'.$this->getResourceName());
     }
 
     /**
@@ -78,7 +73,7 @@ abstract class BasePolicy
      */
     public function create($user)
     {
-        return $user && $user->hasPermission('create.' . $this->getResourceName());
+        return $user && $user->hasPermission('create.'.$this->getResourceName());
     }
 
     /**
@@ -86,7 +81,7 @@ abstract class BasePolicy
      */
     public function update($user, Model $model)
     {
-        return $user && $user->hasPermission('update.' . $this->getResourceName());
+        return $user && $user->hasPermission('update.'.$this->getResourceName());
     }
 
     /**
@@ -94,7 +89,7 @@ abstract class BasePolicy
      */
     public function delete($user, Model $model)
     {
-        return $user && $user->hasPermission('delete.' . $this->getResourceName());
+        return $user && $user->hasPermission('delete.'.$this->getResourceName());
     }
 
     /**
@@ -102,7 +97,7 @@ abstract class BasePolicy
      */
     public function restore($user, Model $model)
     {
-        return $user && $user->hasPermission('restore.' . $this->getResourceName());
+        return $user && $user->hasPermission('restore.'.$this->getResourceName());
     }
 
     /**
@@ -110,7 +105,7 @@ abstract class BasePolicy
      */
     public function forceDelete($user, Model $model)
     {
-        return $user && $user->hasPermission('force_delete.' . $this->getResourceName());
+        return $user && $user->hasPermission('force_delete.'.$this->getResourceName());
     }
 
     /**

@@ -4,8 +4,6 @@ namespace NowakAdmin\NovaRoleManager\Policies;
 
 use Illuminate\Support\Str;
 use NowakAdmin\BizantiCore\Models\User;
-use NowakAdmin\BizantiLicensing\Services\LicenseService;
-use Spatie\Multitenancy\Models\Tenant;
 
 class BasePolicy
 {

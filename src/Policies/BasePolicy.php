@@ -64,7 +64,7 @@ abstract class BasePolicy
     {
         return $user instanceof User
             && $this->isLicensed($user)
-            && $user->hasPermission('view.'.$this->getResourceName());
+            && $user->hasPermission($this->getResourceName().'.view');
     }
 
     /**
@@ -74,7 +74,7 @@ abstract class BasePolicy
     {
         return $user instanceof User
             && $this->isLicensed($user)
-            && $user->hasPermission('create.'.$this->getResourceName());
+            && $user->hasPermission($this->getResourceName().'.create');
     }
 
     /**
@@ -84,7 +84,7 @@ abstract class BasePolicy
     {
         return $user instanceof User
             && $this->isLicensed($user)
-            && $user->hasPermission('update.'.$this->getResourceName());
+            && $user->hasPermission($this->getResourceName().'.update');
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class BasePolicy
     {
         return $user instanceof User
             && $this->isLicensed($user)
-            && $user->hasPermission('delete.'.$this->getResourceName());
+            && $user->hasPermission($this->getResourceName().'.delete');
     }
 
     /**
@@ -104,7 +104,7 @@ abstract class BasePolicy
     {
         return $user instanceof User
             && $this->isLicensed($user)
-            && $user->hasPermission('restore.'.$this->getResourceName());
+            && $user->hasPermission($this->getResourceName().'.restore');
     }
 
     /**
@@ -114,7 +114,7 @@ abstract class BasePolicy
     {
         return $user instanceof User
             && $this->isLicensed($user)
-            && $user->hasPermission('force_delete.'.$this->getResourceName());
+            && $user->hasPermission($this->getResourceName().'.force_delete');
     }
 
     /**
@@ -122,7 +122,7 @@ abstract class BasePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $this->isLicensed($user) && $user->hasPermission('view.'.$this->getResourceName());
+        return $this->isLicensed($user) && $user->hasPermission($this->getResourceName().'.view');
     }
 
     /**

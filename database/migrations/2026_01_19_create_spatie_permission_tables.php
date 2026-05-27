@@ -33,8 +33,8 @@ return new class extends Migration {
                 $table->string('name');
                 $table->string('guard_name')->default('web');
                 $table->string('description')->nullable();
-                $table->string('resource')->nullable();
                 $table->string('action')->nullable();
+                $table->string('resource')->nullable();
                 $table->timestamps();
 
                 $table->unique(['name', 'guard_name', 'tenant_id']);

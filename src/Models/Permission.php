@@ -14,7 +14,7 @@ class Permission extends SpatiePermission
     {
         static::saving(function (self $permission): void {
             if (filled($permission->resource) && filled($permission->action)) {
-                $permission->name = self::makePermissionName($permission->resource, $permission->action);
+                $permission->name = self::makePermissionName($permission->action, $permission->resource);
             }
         });
     }
@@ -36,10 +36,10 @@ class Permission extends SpatiePermission
     }
 
     /**
-     * Helper to create permission name in format: resource.action
+     * Helper to create permission name in format: action.resource
      */
-    public static function makePermissionName(string $resource, string $action): string
+    public static function makePermissionName(string $action, string $resource): string
     {
-        return "{$resource}.{$action}";
+        return "{$action}.{$resource}";
     }
 }

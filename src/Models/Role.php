@@ -51,10 +51,10 @@ class Role extends SpatieRole
     }
 
     /**
-     * Helper to create permission name in format: resource.action
+     * Helper to create permission name in format: action.resource
      */
-    public static function makePermissionName(string $resource, string $action): string
+    public static function makePermissionName(string $action, string $resource): string
     {
-        return "{$resource}.{$action}";
+        return "{$action}.{$resource}";
     }
 }

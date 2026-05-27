@@ -2,119 +2,39 @@
 
 namespace NowakAdmin\NovaRoleManager\Policies;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use NowakAdmin\BizantiCore\Models\User;
 use NowakAdmin\BizantiLicensing\Services\LicenseService;
+use Spatie\Multitenancy\Models\Tenant;
 
-abstract class BasePolicy
+class BasePolicy
 {
     /**
-     * Module license key required for this policy.
+     * The model class detected from the Gate arguments.
+     * Set in before() and used by ability methods for resource name detection.
      */
-    protected string $licensedModule = '';
+    private string $detectedModelClass = '';
 
     /**
-     * Determine if any action is allowed (called first).
+     * Run before every policy method.
+     *
+     * Denies non-User principals immediately. Detects the model/resource class
+     * from the Gate argument so ability methods can derive the permission name.
+     * License enforcement is handled globally via Gate::before() in AuthServiceProvider.
      */
-    public function before($user, $ability)
+    public function before(mixed $user, string $ability, mixed $argument = null): ?bool
     {
         if (! $user instanceof User) {
-            return null;
-        }
-
-        return null;
-    }
-
-    /**
-     * Get the license service.
-     */
-    protected function licenseService(): LicenseService
-    {
-        return app(LicenseService::class);
-    }
-
-    /**
-     * Check whether this policy has a module license configured.
-     */
-    protected function requiresLicense(): bool
-    {
-        return $this->licensedModule !== '';
-    }
-
-    /**
-     * Check if user's tenant is licensed for this policy.
-     */
-    protected function isLicensed(User $user): bool
-    {
-        if (! $this->requiresLicense()) {
-            return true;
-        }
-
-        if (! $user->tenant_id) {
             return false;
         }
 
-        return $this->licenseService()->hasTenantLicense($user->tenant_id, $this->licensedModule);
-    }
+        if (is_object($argument)) {
+            $this->detectedModelClass = get_class($argument);
+        } elseif (is_string($argument) && class_exists($argument)) {
+            $this->detectedModelClass = $argument;
+        }
 
-    /**
-     * Determine if the user can view the model.
-     */
-    public function view($user, Model $model)
-    {
-        return $user instanceof User
-            && $this->isLicensed($user)
-            && $user->hasPermission('view.'.$this->getResourceName());
-    }
-
-    /**
-     * Determine if the user can create models.
-     */
-    public function create($user)
-    {
-        return $user instanceof User
-            && $this->isLicensed($user)
-            && $user->hasPermission('create.'.$this->getResourceName());
-    }
-
-    /**
-     * Determine if the user can update the model.
-     */
-    public function update($user, Model $model)
-    {
-        return $user instanceof User
-            && $this->isLicensed($user)
-            && $user->hasPermission('update.'.$this->getResourceName());
-    }
-
-    /**
-     * Determine if the user can delete the model.
-     */
-    public function delete($user, Model $model)
-    {
-        return $user instanceof User
-            && $this->isLicensed($user)
-            && $user->hasPermission('delete.'.$this->getResourceName());
-    }
-
-    /**
-     * Determine if the user can restore the model.
-     */
-    public function restore($user, Model $model)
-    {
-        return $user instanceof User
-            && $this->isLicensed($user)
-            && $user->hasPermission('restore.'.$this->getResourceName());
-    }
-
-    /**
-     * Determine if the user can permanently delete the model.
-     */
-    public function forceDelete($user, Model $model)
-    {
-        return $user instanceof User
-            && $this->isLicensed($user)
-            && $user->hasPermission('force_delete.'.$this->getResourceName());
+        return null;
     }
 
     /**
@@ -122,12 +42,67 @@ abstract class BasePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $this->isLicensed($user) && $user->hasPermission('view.'.$this->getResourceName());
+        return $user->hasPermission('view.'.$this->getResourceName());
     }
 
     /**
-     * Get the resource name for permission checking.
-     * Override in child classes.
+     * Determine if the user can view the model.
      */
-    abstract protected function getResourceName(): string;
+    public function view(User $user, mixed $model): bool
+    {
+        return $user->hasPermission('view.'.$this->getResourceName());
+    }
+
+    /**
+     * Determine if the user can create models.
+     */
+    public function create(User $user): bool
+    {
+        return $user->hasPermission('create.'.$this->getResourceName());
+    }
+
+    /**
+     * Determine if the user can update the model.
+     */
+    public function update(User $user, mixed $model): bool
+    {
+        return $user->hasPermission('update.'.$this->getResourceName());
+    }
+
+    /**
+     * Determine if the user can delete the model.
+     */
+    public function delete(User $user, mixed $model): bool
+    {
+        return $user->hasPermission('delete.'.$this->getResourceName());
+    }
+
+    /**
+     * Determine if the user can restore the model.
+     */
+    public function restore(User $user, mixed $model): bool
+    {
+        return $user->hasPermission('restore.'.$this->getResourceName());
+    }
+
+    /**
+     * Determine if the user can permanently delete the model.
+     */
+    public function forceDelete(User $user, mixed $model): bool
+    {
+        return $user->hasPermission('force_delete.'.$this->getResourceName());
+    }
+
+    /**
+     * Derive the resource name for permission building.
+     * Uses the detected model/resource class basename in snake_case.
+     */
+    protected function getResourceName(): string
+    {
+        if ($this->detectedModelClass === '') {
+            return '';
+        }
+
+        return Str::snake(class_basename($this->detectedModelClass));
+    }
 }

@@ -21,9 +21,6 @@ abstract class BasePolicy
         if (! $user instanceof User) {
             return null;
         }
-        if ($user->isSuperAdmin()) {
-            return true;
-        }
 
         return null;
     }
@@ -65,7 +62,9 @@ abstract class BasePolicy
      */
     public function view($user, Model $model)
     {
-        return $user && $user->hasPermission('view.'.$this->getResourceName());
+        return $user instanceof User
+            && $this->isLicensed($user)
+            && $user->hasPermission('view.'.$this->getResourceName());
     }
 
     /**
@@ -73,7 +72,9 @@ abstract class BasePolicy
      */
     public function create($user)
     {
-        return $user && $user->hasPermission('create.'.$this->getResourceName());
+        return $user instanceof User
+            && $this->isLicensed($user)
+            && $user->hasPermission('create.'.$this->getResourceName());
     }
 
     /**
@@ -81,7 +82,9 @@ abstract class BasePolicy
      */
     public function update($user, Model $model)
     {
-        return $user && $user->hasPermission('update.'.$this->getResourceName());
+        return $user instanceof User
+            && $this->isLicensed($user)
+            && $user->hasPermission('update.'.$this->getResourceName());
     }
 
     /**
@@ -89,7 +92,9 @@ abstract class BasePolicy
      */
     public function delete($user, Model $model)
     {
-        return $user && $user->hasPermission('delete.'.$this->getResourceName());
+        return $user instanceof User
+            && $this->isLicensed($user)
+            && $user->hasPermission('delete.'.$this->getResourceName());
     }
 
     /**
@@ -97,7 +102,9 @@ abstract class BasePolicy
      */
     public function restore($user, Model $model)
     {
-        return $user && $user->hasPermission('restore.'.$this->getResourceName());
+        return $user instanceof User
+            && $this->isLicensed($user)
+            && $user->hasPermission('restore.'.$this->getResourceName());
     }
 
     /**
@@ -105,7 +112,17 @@ abstract class BasePolicy
      */
     public function forceDelete($user, Model $model)
     {
-        return $user && $user->hasPermission('force_delete.'.$this->getResourceName());
+        return $user instanceof User
+            && $this->isLicensed($user)
+            && $user->hasPermission('force_delete.'.$this->getResourceName());
+    }
+
+    /**
+     * Determine if the user can view any models.
+     */
+    public function viewAny(User $user): bool
+    {
+        return $this->isLicensed($user) && $user->hasPermission('view.'.$this->getResourceName());
     }
 
     /**

@@ -93,9 +93,9 @@ class Permission extends Resource
                 ->searchable()
                 ->canSee(function ($request) {
                     try {
-                        return auth()->check() && auth()->user()->hasPermission('role.manage');
+                        return auth()->check() && auth()->user()->hasPermission('manage.role');
                     } catch (\Exception $e) {
-                        return true; // During seeding, allow access
+                        return true;
                     }
                 }),
         ];

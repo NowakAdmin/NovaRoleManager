@@ -58,9 +58,9 @@ class Role extends Resource
                 ->searchable()
                 ->canSee(function ($request) {
                     try {
-                        return auth()->check() && auth()->user()->hasPermission('permission.manage');
+                        return auth()->check() && auth()->user()->hasPermission('manage.permission');
                     } catch (\Exception $e) {
-                        return true; // During seeding, allow access
+                        return true;
                     }
                 }),
 
@@ -68,9 +68,9 @@ class Role extends Resource
                 ->searchable()
                 ->canSee(function ($request) {
                     try {
-                        return auth()->check() && auth()->user()->hasPermission('user.manage');
+                        return auth()->check() && auth()->user()->hasPermission('manage.user');
                     } catch (\Exception $e) {
-                        return true; // During seeding, allow access
+                        return true;
                     }
                 }),
         ];

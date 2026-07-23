@@ -16,5 +16,11 @@
     "permissions.resource": "Zasób",
     "permissions.action": "Akcja",
     
-    "users.label": "Użytkownicy"
+    "users.label": "Użytkownicy",
+    "Assign Roles": "Przypisz role",
+    "Roles assigned successfully!": "Role zostały przypisane!",
+    "Select one or more roles to assign to the selected users.": "Wybierz jedną lub więcej ról do przypisania wybranym użytkownikom.",
+    "Remove Roles": "Usuń role",
+    "Roles removed successfully!": "Role zostały usunięte!",
+    "Select one or more roles to remove from the selected users.": "Wybierz jedną lub więcej ról do usunięcia wybranym użytkownikom."
 }

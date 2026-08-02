@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
+use Illuminate\Support\Str;
 
 class Permission extends Resource
 {
@@ -45,11 +46,7 @@ class Permission extends Resource
 
     public function fields(NovaRequest $request)
     {
-        $resources = config('nova-role-manager.resources', [
-            'user' => 'User',
-            'role' => 'Role',
-            'permission' => 'Permission',
-        ]);
+        $resources = $this->resourceOptions();
 
         // Match BasePolicy methods
         $actions = config('nova-role-manager.actions', [
@@ -59,7 +56,6 @@ class Permission extends Resource
             'delete' => 'Delete',
             'restore' => 'Restore',
             'force_delete' => 'Force Delete',
-            'manage' => 'Manage',
         ]);
 
         return [
@@ -93,12 +89,32 @@ class Permission extends Resource
                 ->searchable()
                 ->canSee(function ($request) {
                     try {
-                        return auth()->check() && auth()->user()->hasPermission('manage.role');
+                        return auth()->check() && auth()->user()->hasPermission('update.role');
                     } catch (\Exception $e) {
                         return true;
                     }
                 }),
         ];
+    }
+
+    /**
+     * Build the resource dropdown options from the unified registry, keyed
+     * by each entry's permission key (falls back to Str::snake(classname)),
+     * using registry.labels overrides or Str::headline($key) as the label.
+     *
+     * @return array<string, string>
+     */
+    protected function resourceOptions(): array
+    {
+        $labels = config('registry.labels', []);
+        $options = [];
+
+        foreach (config('registry.entries', []) as $class => $entry) {
+            $key = $entry['key'] ?? Str::snake(class_basename($class));
+            $options[$key] = $labels[$key] ?? Str::headline($key);
+        }
+
+        return $options;
     }
 
     public function cards(NovaRequest $request)

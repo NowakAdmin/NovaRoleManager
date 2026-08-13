@@ -49,7 +49,6 @@ class AssignRole extends Action
             MultiSelect::make(__('Roles'), 'roles')
                 ->options(Role::pluck('name', 'name')->toArray())
                 ->rules('required')
-                ->searchable()
                 ->help(__('Select one or more roles to assign to the selected users.')),
         ];
     }
